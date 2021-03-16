@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, Pressable, Text } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import Constants from 'expo-constants';
 import AppBarTab from './AppBarTab';
 
@@ -13,17 +13,20 @@ const styles = StyleSheet.create({
     padding: theme.padding.normal,
     backgroundColor: theme.colors.appBarBackgroundColor
   },
-  appBarTab: {
-    padding: theme.padding.normal
+  marginLeft: {
+    marginLeft: theme.margin.small
   }
-  // ...
 });
 
 const AppBar = () => {
   return (
     <View style={styles.container}>
-      <AppBarTab onPress={() => alert('Pressed Repositories')}>
+      <AppBarTab link="/" onPress={() => alert('Pressed Repositories')}>
         Repositories
+      </AppBarTab>
+
+      <AppBarTab link="/sign-in" style={styles.marginLeft}>
+        Sign In
       </AppBarTab>
     </View>
   );
