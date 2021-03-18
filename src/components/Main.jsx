@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Switch, Route, Redirect } from 'react-router-native';
 import RepositoryList from './RepositoryList';
@@ -15,18 +15,29 @@ const styles = StyleSheet.create({
 });
 
 const Main = () => {
+  const [isSignedIn, setIsSignedIn] = useState(false);
+
+  if (!isSignedIn) {
+    return (
+      <View style={styles.container}>
+        <AppBar isSignedIn={isSignedIn} setIsSignedIn={setIsSignedIn} />
+        <Switch>
+          <Route path="/sign-in" exact>
+            <SignIn setIsSignedIn={setIsSignedIn} />
+          </Route>
+          <Redirect to="/sign-in" />
+        </Switch>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.container}>
-      <AppBar />
+      <AppBar isSignedIn={isSignedIn} setIsSignedIn={setIsSignedIn} />
       <Switch>
         <Route path="/" exact>
           <RepositoryList />
         </Route>
-
-        <Route path="/sign-in" exact>
-          <SignIn />
-        </Route>
-
         <Redirect to="/" />
       </Switch>
     </View>

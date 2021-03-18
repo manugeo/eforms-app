@@ -1,14 +1,11 @@
 import React from 'react';
 import { TouchableWithoutFeedback } from 'react-native';
-import { Link } from 'react-router-native';
 import Text from '../Text';
 
-const AppBarTab = ({ onPress, children, style, link, ...props }) => {
+const AppBarTab = ({ onPress, children, style, ...props }) => {
   return (
     <TouchableWithoutFeedback onPress={onPress} {...props}>
-      <Link to={link}>
-        <Text color='textWhite' fontWeight='bold' style={style}>{children}</Text>
-      </Link>
+      <Text color='textWhite' fontWeight='bold' style={style}>{children}</Text>
     </TouchableWithoutFeedback>
   );
 };

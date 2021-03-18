@@ -20,17 +20,25 @@ const styles = StyleSheet.create({
   }
 });
 
-const AppBar = () => {
+const AppBar = ({ isSignedIn, setIsSignedIn }) => {
+  const onSignOut = () => setIsSignedIn(false);
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView} horizontal>
-        <AppBarTab link="/" onPress={() => alert('Pressed Repositories')}>
-          Repositories
-        </AppBarTab>
-
-        <AppBarTab link="/sign-in" style={styles.marginLeft}>
-          Sign In
-        </AppBarTab>
+        {isSignedIn ? (
+          <>
+            <AppBarTab onPress={() => alert('Pressed Repositories')}>
+              Repositories
+            </AppBarTab>
+            <AppBarTab onPress={onSignOut} style={styles.marginLeft}>
+              Sign out
+            </AppBarTab>
+          </>
+        ) : (
+          <AppBarTab>
+            Sign in
+          </AppBarTab>
+        )}
       </ScrollView>
     </View>
   );

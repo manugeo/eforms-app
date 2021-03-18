@@ -24,6 +24,17 @@ const styles = StyleSheet.create({
   }
 });
 
+const users = [
+  {
+    username: 'admin',
+    password: 'password'
+  },
+  {
+    username: 'manugeo',
+    password: '12345678'
+  }
+];
+
 const initialValues = {
   username: '',
   password: ''
@@ -48,9 +59,10 @@ const SignInForm = ({ onSubmit }) => {
 };
 
 
-const SignIn = () => {
+const SignIn = ({ setIsSignedIn }) => {
   const onSubmit = (values) => {
-    console.log(values);
+    const user = users.find( user => (user.username === values.username) && (user.password === values.password));
+    if (user) setIsSignedIn(true);
   };
 
   return (
