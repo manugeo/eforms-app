@@ -62,7 +62,12 @@ const SignInForm = ({ onSubmit }) => {
 const SignIn = ({ setIsSignedIn }) => {
   const onSubmit = (values) => {
     const user = users.find( user => (user.username === values.username) && (user.password === values.password));
-    if (user) setIsSignedIn(true);
+    if (user) {
+      setIsSignedIn(true);
+    }
+    else {
+      alert("Couldn't find your account!");
+    }
   };
 
   return (
