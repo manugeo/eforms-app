@@ -24,17 +24,6 @@ const styles = StyleSheet.create({
   }
 });
 
-const users = [
-  {
-    username: 'admin',
-    password: 'password'
-  },
-  {
-    username: 'manugeo',
-    password: '12345678'
-  }
-];
-
 const initialValues = {
   username: '',
   password: ''
@@ -60,19 +49,27 @@ const SignInForm = ({ onSubmit }) => {
 
 
 const SignIn = ({ setIsSignedIn }) => {
-  const onSubmit = (values) => {
-    const user = users.find( user => (user.username === values.username) && (user.password === values.password));
-    if (user) {
-      setIsSignedIn(true);
+  const signInUser = async (values) => {
+    const response = await fetch('http://66.45.252.83:8080/efscore/authenticate', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(values)
+    });
+    const json = await response.json();
+    if (json.error) {
+      alert(json.message);
     }
     else {
-      alert("Couldn't find your account!");
+      setIsSignedIn(true);
     }
   };
 
   return (
     <View style={styles.container}>
-      <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+      <Formik initialValues={initialValues} onSubmit={signInUser} validationSchema={validationSchema}>
         {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
       </Formik>
     </View>
