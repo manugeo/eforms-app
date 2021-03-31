@@ -5,6 +5,7 @@ import { Formik } from 'formik';
 import * as yup from 'yup';
 import FormikTextInput from './FormikTextInput';
 import Text from './Text';
+import useSignIn from '../hooks/useSignIn';
 
 const styles = StyleSheet.create({
   container: {
@@ -47,29 +48,26 @@ const SignInForm = ({ onSubmit }) => {
   );
 };
 
-
 const SignIn = ({ setIsSignedIn }) => {
-  const signInUser = async (values) => {
-    const response = await fetch('http://66.45.252.83:8080/efscore/authenticate', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(values)
-    });
-    const json = await response.json();
-    if (json.error) {
-      alert(json.message);
-    }
-    else {
-      setIsSignedIn(true);
+  const [signIn] = useSignIn();
+  const onSubmit = async (values) => {
+    const { username, password } = values;
+    try {
+      const data = await signIn({ username, password });
+      if (data.error) {
+        alert(data.message);
+      }
+      else {
+        setIsSignedIn(true);
+      }
+    } catch (e) {
+      console.log(e);
     }
   };
 
   return (
     <View style={styles.container}>
-      <Formik initialValues={initialValues} onSubmit={signInUser} validationSchema={validationSchema}>
+      <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
         {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
       </Formik>
     </View>
