@@ -7,8 +7,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 4,
     borderColor: theme.colors.secondary,
-    minHeight: 64,
-    padding: theme.padding.normal,
+    paddingHorizontal: theme.padding.normal,
+    paddingVertical: theme.padding.small,
     fontSize: theme.fontSizes.subheading
   },
   errorInput: {

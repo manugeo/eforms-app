@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Switch, Route, Redirect } from 'react-router-native';
-import RepositoryList from './RepositoryList';
 import SignIn from './SignIn.jsx';
-import AppBar from './AppBar/AppBar';
+import Header from './Header';
+import Applications from './Applications/Applications';
 import theme from '../theme';
 
 const styles = StyleSheet.create({
@@ -20,7 +20,8 @@ const Main = () => {
   if (!isSignedIn) {
     return (
       <View style={styles.container}>
-        <AppBar isSignedIn={isSignedIn} setIsSignedIn={setIsSignedIn} />
+        <Header isSignedIn={isSignedIn} setIsSignedIn={setIsSignedIn} />
+
         <Switch>
           <Route path="/sign-in" exact>
             <SignIn setIsSignedIn={setIsSignedIn} />
@@ -33,10 +34,11 @@ const Main = () => {
 
   return (
     <View style={styles.container}>
-      <AppBar isSignedIn={isSignedIn} setIsSignedIn={setIsSignedIn} />
+      <Header isSignedIn={isSignedIn} setIsSignedIn={setIsSignedIn} />
+
       <Switch>
         <Route path="/" exact>
-          <RepositoryList />
+          <Applications />
         </Route>
         <Redirect to="/" />
       </Switch>

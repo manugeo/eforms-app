@@ -5,7 +5,7 @@ import Text from './Text';
 import theme from '../theme';
 
 const styles = StyleSheet.create({
-  wrapper: {
+  container: {
     backgroundColor: 'white',
     padding: theme.padding.normal
   },
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 
 const RepositoryItem = ({ item }) => {
   return (
-    <View style={styles.wrapper}>
+    <View style={styles.container}>
       <View style={styles.headerRow}>
         <Image style={styles.avatar} source={{ uri: item.ownerAvatarUrl }}>
         </Image>

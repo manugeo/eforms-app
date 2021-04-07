@@ -1,15 +1,12 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
-import Constants from 'expo-constants';
 import AppBarTab from './AppBarTab';
 
 import theme from '../../theme';
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: Constants.statusBarHeight,
-    padding: theme.padding.normal,
-    backgroundColor: theme.colors.appBarBackgroundColor
+    padding: theme.padding.normal
   },
   scrollView: {
     display: 'flex',
@@ -27,8 +24,8 @@ const AppBar = ({ isSignedIn, setIsSignedIn }) => {
       <ScrollView style={styles.scrollView} horizontal>
         {isSignedIn ? (
           <>
-            <AppBarTab onPress={() => alert('Pressed Repositories')}>
-              Repositories
+            <AppBarTab onPress={() => alert('Pressed Dashboard!')}>
+              Applications
             </AppBarTab>
             <AppBarTab onPress={onSignOut} style={styles.marginLeft}>
               Sign out

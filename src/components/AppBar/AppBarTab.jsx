@@ -5,7 +5,7 @@ import Text from '../Text';
 const AppBarTab = ({ onPress, children, style, ...props }) => {
   return (
     <TouchableWithoutFeedback onPress={onPress} {...props}>
-      <Text color='textWhite' fontWeight='bold' style={style}>{children}</Text>
+      <Text color='primary' fontWeight='bold' style={style}>{children}</Text>
     </TouchableWithoutFeedback>
   );
 };

@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
   },
   signInButton: {
     backgroundColor: theme.colors.primary,
-    minHeight: 64,
     borderRadius: 4,
     padding: theme.padding.normal,
     textAlign: 'center',
