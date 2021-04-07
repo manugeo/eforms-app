@@ -9,6 +9,7 @@ const Applications = () => {
 
   const styles = StyleSheet.create({
     container: {
+      flex: 1,
       marginTop: theme.margin.normal
     },
     searchInput: {
@@ -21,7 +22,7 @@ const Applications = () => {
   const applications = [
     {
       form: {
-        name: '2020 J F Allen Scholarship and Teachers Life Bursary Application',
+        name: '1. 2020 J F Allen Scholarship and Teachers Life Bursary Application',
         openingTime: '12/01/2019 12:01:00 AM',
         closingTime: '04/25/2022 07:24:00 PM',
         description: 'J.F. Allen Scholarship Application - The J.F. Allen Scholarship is awarded to students who exemplify excellence, achievement and involvement in their schools and communities while maintaining a minimum of 80% average. Two J.F. Allen Scholarship recipients receive $3,000 each year for up to four years.',
@@ -29,11 +30,11 @@ const Applications = () => {
       state: {
         name: 'Submitted'
       },
-      id: 3752
+      id: 3751
     },
     {
       form: {
-        name: 'BBPA National Scholarship Application Form',
+        name: '2. BBPA National Scholarship Application Form',
         openingTime: '12/01/2019 12:01:00 AM',
         closingTime: '11/30/2019 06:01:00 PM',
         description: 'The BBPA National Scholarship Fund was established in 1986 and is dedicated to supporting and promoting the achievement of academic excellence by Black Canadian youth through an annual scholarship program.',
@@ -41,11 +42,11 @@ const Applications = () => {
       state: {
         name: 'Not Submitted'
       },
-      id: 3757
+      id: 3752
     },
     {
       form: {
-        name: 'Test Application November 2020',
+        name: '3. Test Application November 2020',
         openingTime: '12/01/2019 12:01:00 AM',
         closingTime: '09/12/2022 07:24:00 PM',
         description: 'Testing out Multi Access field contributor section.',
@@ -54,7 +55,7 @@ const Applications = () => {
         name: 'Not Submitted'
       },
       pastApplicationDeadline: true,
-      id: 3971
+      id: 3973
     }
   ];
 

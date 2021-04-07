@@ -22,9 +22,6 @@ const ApplicationList = ({ applications }) => {
       renderItem={({ item }) => <ApplicationItem application={item} />}
       keyExtractor={(application, index) => index.toString()}
       style={styles.list}
-      contentContainerStyle={{
-        flexGrow: 1,
-      }}
     />
   );
 };
