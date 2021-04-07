@@ -15,7 +15,6 @@ const styles = StyleSheet.create({
 const ItemSeparator = () => <View style={styles.separator} />;
 
 const ApplicationList = ({ applications }) => {
-  console.log(applications);
   return (
     <FlatList
       data={applications}

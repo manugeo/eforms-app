@@ -33,8 +33,6 @@ const styles = StyleSheet.create({
 });
 
 const ApplicationItem = ({ application }) => {
-  console.log(application);
-
   const getActionButtonText = () => {
     if (application.id == '0') {
       return "Apply";
