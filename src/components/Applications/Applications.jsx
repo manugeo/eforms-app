@@ -9,6 +9,14 @@ const Applications = () => {
   const [searchText, setSearchText] = useState('');
   const { applications } = useApplications();
 
+  // These application's name includes search param.
+  const appsByName = applications.filter(app => app.form.name.toLowerCase().includes(searchText.toLowerCase()));
+  // These application's name doesn't includes search param but their descriptions does.
+  const appsByDescription = applications.filter(app => {
+    return !appsByName.includes(app) && (app.form.description.toLowerCase().includes(searchText.toLowerCase()));
+  });
+  const filteredApplications = [...appsByName, ...appsByDescription];
+
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -30,7 +38,7 @@ const Applications = () => {
         value={searchText}
       />
 
-      <ApplicationList applications={applications} />
+      <ApplicationList applications={filteredApplications} />
     </View>
   );
 };
