@@ -46,8 +46,8 @@ const ApplicationItem = ({ application }) => {
     <View style={styles.container}>
       <View style={styles.headerRow}>
         <Text fontSize="heading" fontWeight="bold">{application.form.name}</Text>
-        <Text color="textSecondary">{`Opening Time:${application.form.openingTime}`}</Text>
-        <Text color="textSecondary">{`Closing Time:${application.form.closingTime}`}</Text>
+        <Text color="textSecondary">{`Opening Time: ${application.form.openingDate}`}</Text>
+        <Text color="textSecondary">{`Closing Time: ${application.form.closingDate}`}</Text>
       </View>
       <View style={styles.descriptionRow}>
         <Text>{application.form.description}</Text>
