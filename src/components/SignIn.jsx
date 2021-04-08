@@ -21,6 +21,9 @@ const styles = StyleSheet.create({
     padding: theme.padding.normal,
     textAlign: 'center',
     textAlignVertical: 'center'
+  },
+  disabledSignInButton: {
+    backgroundColor: theme.colors.secondary
   }
 });
 
@@ -34,8 +37,8 @@ const validationSchema = yup.object().shape({
   password: yup.string().required('Password is required')
 });
 
-const SignInForm = ({ onSubmit }) => {
-  const signInButtonStyle = [styles.signInButton, styles.marginTop,];
+const SignInForm = ({ onSubmit, loading }) => {
+  const signInButtonStyle = [styles.signInButton, styles.marginTop, (loading && styles.disabledSignInButton)];
   return (
     <View>
       <FormikTextInput name="username" placeholder="Username" autoCapitalize="none" autoCorrect={false} />
@@ -49,8 +52,9 @@ const SignInForm = ({ onSubmit }) => {
 };
 
 const SignIn = ({ setIsSignedIn }) => {
-  const [signIn] = useSignIn();
+  const { signIn, loading } = useSignIn();
   const onSubmit = async (values) => {
+    if (loading) return;
     const { username, password } = values;
     try {
       const data = await signIn({ username, password });
@@ -68,7 +72,7 @@ const SignIn = ({ setIsSignedIn }) => {
   return (
     <View style={styles.container}>
       <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-        {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} />}
+        {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} loading={loading} />}
       </Formik>
     </View>
   );
