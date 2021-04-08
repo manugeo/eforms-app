@@ -38,8 +38,9 @@ const SignInForm = ({ onSubmit }) => {
   const signInButtonStyle = [styles.signInButton, styles.marginTop,];
   return (
     <View>
-      <FormikTextInput name="username" placeholder="Username" />
-      <FormikTextInput name="password" placeholder="Password" secureTextEntry style={styles.marginTop} />
+      <FormikTextInput name="username" placeholder="Username" autoCapitalize="none" autoCorrect={false} />
+      <FormikTextInput name="password" placeholder="Password" autoCapitalize="none" autoCorrect={false}
+        secureTextEntry style={styles.marginTop} />
       <TouchableWithoutFeedback onPress={onSubmit}>
         <Text color="textWhite" fontSize="subheading" fontWeight="bold" style={signInButtonStyle}>Sign in</Text>
       </TouchableWithoutFeedback>
