@@ -24,7 +24,7 @@ const AppBar = ({ isSignedIn, setIsSignedIn }) => {
       <ScrollView style={styles.scrollView} horizontal>
         {isSignedIn ? (
           <>
-            <AppBarTab onPress={() => alert('Pressed Dashboard!')}>
+            <AppBarTab onPress={() => alert('Pressed Applications!')}>
               Applications
             </AppBarTab>
             <AppBarTab onPress={onSignOut} style={styles.marginLeft}>
