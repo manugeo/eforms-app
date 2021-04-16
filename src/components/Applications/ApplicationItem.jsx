@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
 
 const ApplicationItem = ({ application }) => {
   const getActionButtonText = () => {
-    if (application.id == '0') {
+    if (application.documentId == '0') {
       return "Apply";
     }
     if (application.state && application.state.id !== 1) return "View Application";
