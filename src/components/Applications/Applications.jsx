@@ -1,9 +1,29 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, FlatList, StyleSheet } from 'react-native';
 import theme from '../../theme';
 import TextInput from '../TextInput';
-import ApplicationList from './ApplicationList';
+import ApplicationItem from './ApplicationItem';
 import useApplications from '../../hooks/useApplications';
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    marginTop: theme.margin.normal
+  },
+  searchInput: {
+    backgroundColor: theme.colors.white,
+    borderWidth: 0,
+    borderRadius: 0
+  },
+  separator: {
+    height: theme.margin.normal,
+  },
+  list: {
+    marginTop: theme.margin.normal
+  }
+});
+
+const ItemSeparator = () => <View style={styles.separator} />;
 
 const Applications = () => {
   const [searchText, setSearchText] = useState('');
@@ -17,18 +37,6 @@ const Applications = () => {
   });
   const filteredApplications = [...appsByName, ...appsByDescription];
 
-  const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      marginTop: theme.margin.normal
-    },
-    searchInput: {
-      backgroundColor: theme.colors.white,
-      borderWidth: 0,
-      borderRadius: 0
-    }
-  });
-
   return (
     <View style={styles.container}>
       <TextInput
@@ -38,7 +46,13 @@ const Applications = () => {
         value={searchText}
       />
 
-      <ApplicationList applications={filteredApplications} />
+      <FlatList
+        data={filteredApplications}
+        ItemSeparatorComponent={ItemSeparator}
+        renderItem={({ item }) => <ApplicationItem application={item} />}
+        keyExtractor={(application, index) => index.toString()}
+        style={styles.list}
+      />
     </View>
   );
 };
