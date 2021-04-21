@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { useHistory } from 'react-router-native';
 import theme from '../../theme';
 import Text from '../Text';
 
@@ -33,6 +34,7 @@ const styles = StyleSheet.create({
 });
 
 const ApplicationItem = ({ application }) => {
+  const history = useHistory();
   const getActionButtonText = () => {
     if (application.documentId == '0') {
       return "Apply";
@@ -40,6 +42,15 @@ const ApplicationItem = ({ application }) => {
     if (application.state && application.state.id !== 1) return "View Application";
     if (application.pastDeadline) return "View Application";
     return "Continue";
+  };
+
+  const onApplicationActionClick = () => {
+    const documentId = application.documentId || null;
+    if (documentId) {
+      history.push(`/applications/${documentId}`);
+    } else {
+      alert("Document is not present!");
+    }
   };
 
   return (
@@ -56,7 +67,7 @@ const ApplicationItem = ({ application }) => {
         <Text color="textSecondary" fontSize="subHeading" fontWeight="bold">
           {application.state ? application.state.name : 'Not Started'}
         </Text>
-        <TouchableWithoutFeedback onPress={() => console.log(application)}>
+        <TouchableWithoutFeedback onPress={onApplicationActionClick}>
           <Text color="textWhite" fontSize="subheading" fontWeight="bold" style={styles.actionButton}>
             {getActionButtonText()}
           </Text>

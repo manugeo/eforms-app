@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import { Switch, Route, Redirect } from 'react-router-native';
 import SignIn from './SignIn.jsx';
 import Header from './Header';
+import ApplicationSections from './Applications/ApplicationSections';
 import Applications from './Applications/Applications';
 import theme from '../theme';
 
@@ -37,6 +38,9 @@ const Main = () => {
       <Header isSignedIn={isSignedIn} setIsSignedIn={setIsSignedIn} />
 
       <Switch>
+        <Route path="/applications/:id">
+          <ApplicationSections />
+        </Route>
         <Route path="/" exact>
           <Applications />
         </Route>
