@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet, ScrollView } from 'react-native';
 import { useParams } from 'react-router-native';
 import useApplication from '../../hooks/useApplication';
 import theme from '../../theme';
@@ -7,8 +7,7 @@ import Text from '../Text';
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
-    marginTop: theme.margin.normal
+    marginTop: 1
   },
   applicationTitle: {
     backgroundColor: theme.colors.white,
@@ -16,7 +15,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   sectionsText: {
-    marginTop: theme.margin.small,
+    marginTop: 1,
     backgroundColor: theme.colors.white,
     padding: theme.padding.normal,
     textAlign: 'center'
@@ -41,13 +40,13 @@ const ApplicationSections = () => {
   const { currentApplication } = useApplication(documentId);
 
   return currentApplication ? (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Text fontSize="bigHeading" fontWeight="bold" style={styles.applicationTitle}>{currentApplication.forms.name}</Text>
       <Text fontSize="heading" fontWeight="bold" style={styles.sectionsText}>Sections</Text>
       {currentApplication.forms.sections.map((section, index) => {
         return <SectionItem key={index} name={section.name} number={index + 1} />;
       })}
-    </View>
+    </ScrollView>
   ) : null;
 };
 
