@@ -1,5 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import { useParams } from 'react-router-native';
+import useApplication from '../../hooks/useApplication';
 import theme from '../../theme';
 import Text from '../Text';
 
@@ -27,44 +29,6 @@ const styles = StyleSheet.create({
   }
 });
 
-const application = {
-  forms: {
-    name: "Frisco Education Foundation Mini-Grant Application 2021",
-    sections: [
-      {
-        name: "Classroom Application"
-      },
-      {
-        name: "Accounting Budget Page"
-      },
-      {
-        name: " About Funding"
-      },
-      {
-        name: "About Project"
-      },
-      {
-        name: "Co-Applicants"
-      },
-      {
-        name: "About Budget"
-      },
-      {
-        name: "Principal Approval"
-      },
-      {
-        name: "Principal/Supervisor Approval Form"
-      },
-      {
-        name: "Technology Approval Form"
-      },
-      {
-        name: "Curriculum Approval Form"
-      }
-    ]
-  }
-};
-
 const SectionItem = ({ name, number }) => {
   return (
     <Text fontSize="subHeading" fontWeight="bold" style={styles.sectionItem}>{`${number}. ${name}`}</Text>
@@ -72,15 +36,19 @@ const SectionItem = ({ name, number }) => {
 };
 
 const ApplicationSections = () => {
-  return (
+  const params = useParams();
+  const { documentId } = params;
+  const { currentApplication } = useApplication(documentId);
+
+  return currentApplication ? (
     <View style={styles.container}>
-      <Text fontSize="bigHeading" fontWeight="bold" style={styles.applicationTitle}>{application.forms.name}</Text>
+      <Text fontSize="bigHeading" fontWeight="bold" style={styles.applicationTitle}>{currentApplication.forms.name}</Text>
       <Text fontSize="heading" fontWeight="bold" style={styles.sectionsText}>Sections</Text>
-      {application.forms.sections.map((section, index) => {
+      {currentApplication.forms.sections.map((section, index) => {
         return <SectionItem key={index} name={section.name} number={index + 1} />;
       })}
     </View>
-  );
+  ) : null;
 };
 
 export default ApplicationSections;

@@ -38,7 +38,7 @@ const Main = () => {
       <Header isSignedIn={isSignedIn} setIsSignedIn={setIsSignedIn} />
 
       <Switch>
-        <Route path="/applications/:id">
+        <Route path="/applications/:documentId">
           <ApplicationSections />
         </Route>
         <Route path="/" exact>
