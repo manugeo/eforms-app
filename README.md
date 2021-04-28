@@ -1,4 +1,4 @@
-# rate-repository-app
+# eforms-app
 
-A simple repositories listing app.
+A clone of eformsolutions.com.
 Made as part of learning React Native.
