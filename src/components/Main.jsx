@@ -6,6 +6,7 @@ import Header from './Header';
 import ApplicationSections from './Applications/ApplicationSections';
 import Applications from './Applications/Applications';
 import theme from '../theme';
+import Registration from './Registration.jsx';
 
 const styles = StyleSheet.create({
   container: {
@@ -27,6 +28,11 @@ const Main = () => {
           <Route path="/sign-in" exact>
             <SignIn setIsSignedIn={setIsSignedIn} />
           </Route>
+
+          <Route path="/sign-up" exact>
+            <Registration />
+          </Route>
+
           <Redirect to="/sign-in" />
         </Switch>
       </View>

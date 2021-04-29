@@ -6,6 +6,7 @@ const theme = {
     primary: '#0090D0',
     secondary: '#C4C4C4',
     error: '#d73a4a',
+    successGreen: '#29c686',
     appBarBackgroundColor: '#24292e',
     mainBackgroundColor: '#e1e4e8',
     white: 'white'

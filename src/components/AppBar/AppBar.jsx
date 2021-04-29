@@ -22,6 +22,7 @@ const AppBar = ({ isSignedIn, setIsSignedIn }) => {
   const history = useHistory();
   const onApplicationsClick = () => history.push('/');
   const onSignOut = () => setIsSignedIn(false);
+  const onSignInClick = () => history.push('/sign-in');
   return (
     <View style={styles.container}>
       <ScrollView style={styles.scrollView} horizontal>
@@ -35,7 +36,7 @@ const AppBar = ({ isSignedIn, setIsSignedIn }) => {
             </AppBarTab>
           </>
         ) : (
-          <AppBarTab>
+          <AppBarTab onPress={onSignInClick}>
             Sign in
           </AppBarTab>
         )}

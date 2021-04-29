@@ -6,6 +6,7 @@ import * as yup from 'yup';
 import FormikTextInput from './FormikTextInput';
 import Text from './Text';
 import useSignIn from '../hooks/useSignIn';
+import { useHistory } from 'react-router';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,6 +25,13 @@ const styles = StyleSheet.create({
   },
   disabledSignInButton: {
     backgroundColor: theme.colors.secondary
+  },
+  registrationButton: {
+    backgroundColor: theme.colors.successGreen,
+    borderRadius: 4,
+    padding: theme.padding.normal,
+    textAlign: 'center',
+    textAlignVertical: 'center'
   }
 });
 
@@ -37,14 +45,14 @@ const validationSchema = yup.object().shape({
   password: yup.string().required('Password is required')
 });
 
-const SignInForm = ({ onSubmit, loading }) => {
+const SignInForm = ({ onSignIn, loading }) => {
   const signInButtonStyle = [styles.signInButton, styles.marginTop, (loading && styles.disabledSignInButton)];
   return (
     <View>
       <FormikTextInput name="username" placeholder="Username" autoCapitalize="none" autoCorrect={false} />
       <FormikTextInput name="password" placeholder="Password" autoCapitalize="none" autoCorrect={false}
         secureTextEntry style={styles.marginTop} />
-      <TouchableWithoutFeedback onPress={onSubmit}>
+      <TouchableWithoutFeedback onPress={onSignIn}>
         <Text color="textWhite" fontSize="subheading" fontWeight="bold" style={signInButtonStyle}>Sign in</Text>
       </TouchableWithoutFeedback>
     </View>
@@ -53,7 +61,8 @@ const SignInForm = ({ onSubmit, loading }) => {
 
 const SignIn = ({ setIsSignedIn }) => {
   const { signIn, loading } = useSignIn();
-  const onSubmit = async (values) => {
+  const history = useHistory();
+  const onSignIn = async (values) => {
     if (loading) return;
     const { username, password } = values;
     try {
@@ -68,12 +77,20 @@ const SignIn = ({ setIsSignedIn }) => {
       console.log(e);
     }
   };
+  const registrationButtonStyle = [styles.registrationButton, styles.marginTop];
+  const onRegisterButtonClick = () => {
+    history.push('/sign-up');
+  };
 
   return (
     <View style={styles.container}>
-      <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-        {({ handleSubmit }) => <SignInForm onSubmit={handleSubmit} loading={loading} />}
+      <Formik initialValues={initialValues} onSubmit={onSignIn} validationSchema={validationSchema}>
+        {({ handleSubmit }) => <SignInForm onSignIn={handleSubmit} loading={loading} />}
       </Formik>
+
+      <TouchableWithoutFeedback onPress={onRegisterButtonClick}>
+        <Text color="textWhite" fontSize="subheading" fontWeight="bold" style={registrationButtonStyle}>Create a New Account</Text>
+      </TouchableWithoutFeedback>
     </View>
   );
 };
