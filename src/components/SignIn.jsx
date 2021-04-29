@@ -11,7 +11,8 @@ import { useHistory } from 'react-router';
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'white',
-    padding: theme.padding.normal
+    padding: theme.padding.normal,
+    marginTop: 1
   },
   marginTop: {
     marginTop: theme.margin.normal
