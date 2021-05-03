@@ -1,25 +1,8 @@
 import React from 'react';
-import { TextInput as NativeTextInput, StyleSheet } from 'react-native';
-import theme from '../theme';
+import { TextInput as PaperTextInput } from 'react-native-paper';
 
-const styles = StyleSheet.create({
-  textInput: {
-    borderWidth: 1,
-    borderRadius: 4,
-    borderColor: theme.colors.secondary,
-    paddingHorizontal: theme.padding.normal,
-    paddingVertical: theme.padding.small,
-    fontSize: theme.fontSizes.subheading
-  },
-  errorInput: {
-    borderColor: theme.colors.error
-  }
-});
-
-const TextInput = ({ style, error, ...props }) => {
-  const textInputStyle = [styles.textInput, (error ? styles.errorInput : null), style];
-
-  return <NativeTextInput style={textInputStyle} {...props} />;
+const TextInput = ({error, ...props }) => {
+  return <PaperTextInput mode='outlined' error={error} {...props} />;
 };
 
 export default TextInput;

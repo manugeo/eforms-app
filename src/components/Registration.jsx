@@ -38,15 +38,15 @@ const RegistrationForm = ({ onRegiter }) => {
   const registerButtonStyle = [styles.registerButton, styles.marginTop];
   return (
     <View>
-      <FormikTextInput name="firstName" placeholder="First Name" style={styles.marginTop} />
-      <FormikTextInput name="lastName" placeholder="Last Name" style={styles.marginTop} />
-      <FormikTextInput name="email" placeholder="Email (Also your username)" autoCapitalize="none"
+      <FormikTextInput name="firstName" label="First Name" style={styles.marginTop} />
+      <FormikTextInput name="lastName" label="Last Name" style={styles.marginTop} />
+      <FormikTextInput name="email" label="Email (Also your username)" autoCapitalize="none"
         autoCorrect={false} style={styles.marginTop} />
-      <FormikTextInput name="confirmEmail" placeholder="Confirm Email" autoCapitalize="none"
+      <FormikTextInput name="confirmEmail" label="Confirm Email" autoCapitalize="none"
         autoCorrect={false} style={styles.marginTop} />
-      <FormikTextInput name="password" placeholder="Password" autoCapitalize="none"
+      <FormikTextInput name="password" label="Password" autoCapitalize="none"
         autoCorrect={false} secureTextEntry style={styles.marginTop} />
-      <FormikTextInput name="confirmPassword" placeholder="Confirm Password" autoCapitalize="none"
+      <FormikTextInput name="confirmPassword" label="Confirm Password" autoCapitalize="none"
         autoCorrect={false} style={styles.marginTop} />
       <TouchableWithoutFeedback onPress={onRegiter}>
         <Text color="textWhite" fontSize="subheading" fontWeight="bold" style={registerButtonStyle}>
