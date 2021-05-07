@@ -81,7 +81,7 @@ const RegistrationForm = ({ onRegiter, loading }) => {
       <FormikTextInput name="confirmPassword" label="Confirm Password" autoCapitalize="none"
         textContentType='newPassword' autoCorrect={false} style={styles.marginTop} />
       <FormikSelectInput name="userType" label="User Type" options={selectOptions} style={styles.marginTop} />
-      <Button mode="contained" onPress={onRegiter} loading={loading} disabled={loading} style={styles.marginTop}>
+      <Button mode="contained" color={theme.colors.successGreen} dark={true} onPress={onRegiter} loading={loading} disabled={loading} style={styles.marginTop}>
         Create a New Account
       </Button>
     </View>

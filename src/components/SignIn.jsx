@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import { Button } from 'react-native-paper';
 import theme from '../theme';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import FormikTextInput from './FormikTextInput';
-import Text from './Text';
 import useSignIn from '../hooks/useSignIn';
 import { useHistory } from 'react-router';
 
@@ -17,22 +17,8 @@ const styles = StyleSheet.create({
   marginTop: {
     marginTop: theme.margin.normal
   },
-  signInButton: {
-    backgroundColor: theme.colors.primary,
-    borderRadius: 4,
-    padding: theme.padding.normal,
-    textAlign: 'center',
-    textAlignVertical: 'center'
-  },
   disabledSignInButton: {
     backgroundColor: theme.colors.secondary
-  },
-  registrationButton: {
-    backgroundColor: theme.colors.successGreen,
-    borderRadius: 4,
-    padding: theme.padding.normal,
-    textAlign: 'center',
-    textAlignVertical: 'center'
   }
 });
 
@@ -47,15 +33,14 @@ const validationSchema = yup.object().shape({
 });
 
 const SignInForm = ({ onSignIn, loading }) => {
-  const signInButtonStyle = [styles.signInButton, styles.marginTop, (loading && styles.disabledSignInButton)];
   return (
     <View>
       <FormikTextInput name="username" label="Username" autoCapitalize="none" autoCorrect={false} />
       <FormikTextInput name="password" label="Password" autoCapitalize="none" autoCorrect={false}
         secureTextEntry style={styles.marginTop} />
-      <TouchableWithoutFeedback onPress={onSignIn}>
-        <Text color="textWhite" fontSize="subheading" fontWeight="bold" style={signInButtonStyle}>Sign in</Text>
-      </TouchableWithoutFeedback>
+      <Button mode='contained' onPress={onSignIn} loading={loading} disabled={loading} style={styles.marginTop}>
+        Sign in
+      </Button>
     </View>
   );
 };
@@ -78,7 +63,6 @@ const SignIn = ({ setIsSignedIn }) => {
       console.log(e);
     }
   };
-  const registrationButtonStyle = [styles.registrationButton, styles.marginTop];
   const onRegisterButtonClick = () => {
     history.push('/sign-up');
   };
@@ -89,9 +73,10 @@ const SignIn = ({ setIsSignedIn }) => {
         {({ handleSubmit }) => <SignInForm onSignIn={handleSubmit} loading={loading} />}
       </Formik>
 
-      <TouchableWithoutFeedback onPress={onRegisterButtonClick}>
-        <Text color="textWhite" fontSize="subheading" fontWeight="bold" style={registrationButtonStyle}>Create a New Account</Text>
-      </TouchableWithoutFeedback>
+      {/* ToDo: Add a Right Arrow icon */}
+      <Button mode='contained' color={theme.colors.successGreen} dark={true} onPress={onRegisterButtonClick} style={styles.marginTop}>
+        Create a New Account
+      </Button>
     </View>
   );
 };
