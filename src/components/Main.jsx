@@ -30,7 +30,7 @@ const Main = () => {
           </Route>
 
           <Route path="/sign-up" exact>
-            <Registration />
+            <Registration setIsSignedIn={setIsSignedIn} />
           </Route>
 
           <Redirect to="/sign-in" />

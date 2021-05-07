@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, ScrollView, TouchableWithoutFeedback } from 'react-native';
+import { StyleSheet, View, ScrollView } from 'react-native';
+import { Button } from 'react-native-paper';
 import theme from '../theme';
 import Text from './Text';
 import FormikTextInput from './FormikTextInput';
@@ -7,8 +8,16 @@ import FormikSelectInput from './FormikSelectInput';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import useRegister from '../hooks/useRegister';
+import useSignIn from '../hooks/useSignIn';
 
 const NAME_PATTERN = /^[A-Za-z ,.'-]+$/;
+// Todo: Load user types from clientinfo api call.
+const USER_TYPES = [
+  {
+    id: 3,
+    name: 'Applicant'
+  }
+];
 
 const styles = StyleSheet.create({
   container: {
@@ -18,13 +27,6 @@ const styles = StyleSheet.create({
   },
   marginTop: {
     marginTop: theme.margin.normal
-  },
-  registerButton: {
-    backgroundColor: theme.colors.successGreen,
-    borderRadius: 4,
-    padding: theme.padding.normal,
-    textAlign: 'center',
-    textAlignVertical: 'center'
   }
 });
 
@@ -61,44 +63,70 @@ const validationSchema = yup.object().shape({
   userType: yup.string().required('User Type is required')
 });
 
-const RegistrationForm = ({ onRegiter }) => {
-  const registerButtonStyle = [styles.registerButton, styles.marginTop];
-  const selectOptions = [
-    { name: 'Applicant', value: 'applicant' },
-    { name: 'Super User', value: 'superuser' }
-  ];
+const RegistrationForm = ({ onRegiter, loading }) => {
+  const selectOptions = USER_TYPES.map(userType => {
+    return { name: userType.name, value: userType.id };
+  });
   return (
+    // Todo: Add middle name input as well.
     <View>
       <FormikTextInput name="firstName" label="First Name" style={styles.marginTop} />
       <FormikTextInput name="lastName" label="Last Name" style={styles.marginTop} />
       <FormikTextInput name="email" label="Email (Also your username)" autoCapitalize="none"
-        autoCorrect={false} style={styles.marginTop} />
+        textContentType='emailAddress' autoCorrect={false} style={styles.marginTop} />
       <FormikTextInput name="confirmEmail" label="Confirm Email" autoCapitalize="none"
-        autoCorrect={false} style={styles.marginTop} />
+        textContentType='emailAddress' autoCorrect={false} style={styles.marginTop} />
       <FormikTextInput name="password" label="Password" autoCapitalize="none"
-        autoCorrect={false} secureTextEntry style={styles.marginTop} />
+        textContentType='newPassword' autoCorrect={false} secureTextEntry style={styles.marginTop} />
       <FormikTextInput name="confirmPassword" label="Confirm Password" autoCapitalize="none"
-        autoCorrect={false} style={styles.marginTop} />
+        textContentType='newPassword' autoCorrect={false} style={styles.marginTop} />
       <FormikSelectInput name="userType" label="User Type" options={selectOptions} style={styles.marginTop} />
-      <TouchableWithoutFeedback onPress={onRegiter}>
-        <Text color="textWhite" fontSize="subheading" fontWeight="bold" style={registerButtonStyle}>
-          Create a New Account
-        </Text>
-      </TouchableWithoutFeedback>
+      <Button mode="contained" onPress={onRegiter} loading={loading} disabled={loading} style={styles.marginTop}>
+        Create a New Account
+      </Button>
     </View>
   );
 };
 
-const Registration = () => {
-  const onRegiter = () => {
-    console.log("Handling Registration...");
+const Registration = ({ setIsSignedIn }) => {
+  const { register, loading } = useRegister();
+  const { signIn, loading: signInLoading } = useSignIn();
+  const onRegiter = async (values) => {
+    console.log('About to register...', values);
+
+    if (loading) return;
+    const { firstName, lastName, email, password, userType } = values;
+    try {
+      const data = await register({ firstName, lastName, email, password, userType });
+      if (!data.programUser) {
+        alert(data.message);
+      }
+      else {
+        console.log('Registration successful!', data);
+
+        // Loging in using new credentials.
+        try {
+          const data = await signIn({ username: email, password });
+          if (data.error) {
+            alert(data.message);
+          }
+          else {
+            setIsSignedIn(true);
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
   return (
     <ScrollView style={styles.container}>
       <Text fontSize="heading" >Register</Text>
 
       <Formik initialValues={initialValues} onSubmit={onRegiter} validationSchema={validationSchema}>
-        {({ handleSubmit }) => <RegistrationForm onRegiter={handleSubmit} />}
+        {({ handleSubmit }) => <RegistrationForm onRegiter={handleSubmit} loading={loading || signInLoading} />}
       </Formik>
     </ScrollView>
   );
